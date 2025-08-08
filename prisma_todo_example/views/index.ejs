@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TODO Plans</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .container { width: 500px; margin: 50px auto; }
+    .plan-item { padding: 10px; border-bottom: 1px solid #ccc; }
+    a { text-decoration: none; color: #007bff; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>My Plans</h1>
+    <form action="/plans" method="POST">
+      <input type="text" name="name" placeholder="Add a new plan..." required>
+      <button type="submit">Add Plan</button>
+    </form>
+    <div>
+      <% plans.forEach(plan => { %>
+        <div class="plan-item">
+          <a href="/plans/<%= plan.id %>"><%= plan.name %></a>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>

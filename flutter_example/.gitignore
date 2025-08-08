@@ -1,0 +1,88 @@
+# FVM Version Cache
+.fvm/
+
+# Flutter/Dart/Pub related
+.dart_tool/
+.packages
+build/
+
+# IDE related
+.idea
+.vscode
+
+# Platform specific
+# Android
+android/app/debug/
+android/app/profile/
+android/app/release/
+android/.gradle/
+android/captures/
+android/local.properties
+
+# iOS
+ios/Runner/GeneratedPluginRegistrant.*
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Generated.xcconfig
+ios/Flutter/ephemeral/
+
+
+# System and temporary files
+.DS_Store
+*.log
+
+# FVM配置文件（不同开发者可能使用不同Flutter版本）
+.fvmrc
+
+
+
+# Android额外文件
+android/gradlew
+android/gradlew.bat
+android/gradle/wrapper/gradle-wrapper.jar
+android/key.properties
+android/app/release/
+android/app/google-services.json
+
+# iOS额外文件
+ios/Runner/GoogleService-Info.plist
+ios/Podfile.lock
+ios/Runner.xcworkspace/xcshareddata/
+
+# Flutter相关
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+
+# 编译缓存
+*.class
+*.dex
+*.ap_
+
+# 证书和密钥文件
+*.jks
+*.keystore
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# 环境配置文件
+.env
+.env.local
+.env.*.local
+
+# 临时文件
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# 覆盖率报告
+coverage/
+lcov.info
+
+# 分析文件
+**/analysis_options.yaml.bak

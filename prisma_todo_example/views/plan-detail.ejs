@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Plan: <%= plan.name %></title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .container { width: 500px; margin: 50px auto; }
+    .todo-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #ccc; }
+    .todo-item.completed { text-decoration: line-through; color: #aaa; }
+    .actions form { display: inline; }
+    .back-link { margin-bottom: 20px; display: inline-block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="/" class="back-link">&larr; Back to Plans</a>
+    <h1>Plan: <%= plan.name %></h1>
+    <form action="/plans/<%= plan.id %>/todos" method="POST">
+      <input type="text" name="title" placeholder="Add a new todo..." required>
+      <button type="submit">Add</button>
+    </form>
+    <div>
+      <% plan.todos.forEach(todo => { %>
+        <div class="todo-item <%= todo.isCompleted ? 'completed' : '' %>">
+          <span><%= todo.title %></span>
+          <div class="actions">
+            <% if (!todo.isCompleted) { %>
+              <form action="/plans/<%= plan.id %>/todos/<%= todo.id %>/complete" method="POST">
+                <button type="submit">Complete</button>
+              </form>
+            <% } %>
+            <form action="/plans/<%= plan.id %>/todos/<%= todo.id %>/delete" method="POST">
+              <button type="submit">Delete</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  name        String
+  description String?
+  price       Decimal     @db.Decimal(10, 2)
+  sku         String      @unique
+  stock       Int         @default(0)
+  orderItems  OrderItem[] // 反向关系，一个商品可以出现在多个订单项中
+}
+
+model User {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  email        String   @unique
+  name         String?
+  passwordHash String
+  orders       Order[]
+}
+
+enum OrderStatus {
+  DRAFT          // 草稿（可以理解为购物车状态）
+  PENDING_PAYMENT // 等待支付
+  PAID           // 已支付
+  SHIPPED        // 已发货
+  DELIVERED      // 已送达
+  CANCELLED      // 已取消
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  status      OrderStatus @default(DRAFT)
+  totalAmount Decimal     @db.Decimal(10, 2)
+  userId      String     
+  user        User        @relation(fields: [userId], references: [id])
+  items       OrderItem[] 
+}
+
+model OrderItem {
+  id              String  @id @default(cuid())
+  quantity        Int
+  priceAtPurchase Decimal @db.Decimal(10, 2)
+  orderId         String 
+  order           Order   @relation(fields: [orderId], references: [id])
+  productId       String
+  product         Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+  @@unique([orderId, productId])
+}
+
+
